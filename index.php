@@ -51,7 +51,7 @@ unset($_SESSION['error_message']);
                 <!-- Botons si l'usuari està connectat -->
                 <a href="vista/Inserir.html">Inserir Article</a>
                 <a href="vista/Modificar.html">Modificar Article</a>
-                <a href="controladores/esborrar.php">Eliminar Article</a>
+                <a href="vista/Esborrar.html">Eliminar Article</a>
                 <a href="controladores/logout.php">Tancar Sessió</a>
             <?php else: ?>
                 <!-- Botons si l'usuari no està connectat -->
