@@ -1,5 +1,6 @@
 <?php
-// Marcos Lopez Medina
+//Marcos Lopez Medina
+
 session_start(); // Inicia la sessió
 require_once '../model/db.php'; // Connexió a la base de dades
 

@@ -1,0 +1,137 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    margin-top: 30px;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.actions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.actions a, .actions button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.actions button:hover, .actions a:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo de los mensajes */
+.messages {
+    margin-bottom: 20px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+/* Estilos del contenedor del formulario emergente */
+#form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+#form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+#form-container form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#form-container form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#form-container form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#form-container form button:hover {
+    background-color: #218838;
+}
+
+#form-container form button[type="button"] {
+    background-color: #dc3545;
+}
+
+#form-container form button[type="button"]:hover {
+    background-color: #c82333;
+}
+
+/* Fondo semitransparente para cuando el formulario está activo */
+#form-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

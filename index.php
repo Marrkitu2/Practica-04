@@ -1,5 +1,5 @@
 <?php
-// Marcos Lopez Medina
+//Marcos Lopez Medina
 session_start(); // Inicia la sessió
 require 'model/db.php'; // Connexió a la base de dades
 require 'articles.php'; // Inclou la lògica per mostrar articles
@@ -22,7 +22,7 @@ unset($_SESSION['error_message']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestió d'Articles</title>
-    <link rel="stylesheet" href="estils/styles.css">
+    <link rel="stylesheet" href="estils/style.css">
 </head>
 <body>
     <header>
@@ -60,6 +60,11 @@ unset($_SESSION['error_message']);
             <?php endif; ?>
         </div>
     </main>
+    <div id="form-background"></div>
+
+    <div id="form-container">
+        <div id="form-content"></div>
+    </div>
 
     <div id="form-container" style="display:none;">
         <div id="form-content"></div>
