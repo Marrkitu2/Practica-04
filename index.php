@@ -1,6 +1,6 @@
 <?php
+// Marcos Lopez Medina
 session_start(); // Inicia la sessió
-
 require 'model/db.php'; // Connexió a la base de dades
 require 'articles.php'; // Inclou la lògica per mostrar articles
 

@@ -1,6 +1,6 @@
 <?php
+// Marcos Lopez Medina
 require_once 'model/db.php';
-
 function mostrarArticulos() {
     global $conn; // Utilitzar la variable de connexió global
     $articulos_html = ''; // Inicialitzar variable per emmagatzemar el HTML

@@ -1,4 +1,5 @@
 <?php
+// Marcos Lopez Medina
 $servername = "localhost";
 $username = "root"; // Canvia segons la teva configuració
 $password = ""; // Canvia segons la teva configuració
