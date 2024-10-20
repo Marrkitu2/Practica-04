@@ -94,7 +94,8 @@ main {
     font-weight: bold;
 }
 
-#form-container form input {
+#form-container form input,
+#form-container form textarea {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -134,4 +135,47 @@ main {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+}
+
+/* Estilos para los formularios */
+.form-container {
+    background-color: white; /* Fondo blanco para los formularios */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin: 20px auto; /* Centramos el formulario */
+    width: 400px; /* Ancho fijo */
+}
+
+.form-container h2 {
+    text-align: center; /* Título centrado */
+}
+
+.form-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%; /* Ancho completo */
+    padding: 10px;
+    margin-bottom: 15px; /* Espaciado entre campos */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container button {
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Botón a ancho completo */
+    font-size: 16px;
+}
+
+.form-container button:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el ratón */
 }
