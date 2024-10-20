@@ -1,31 +1,59 @@
 <?php
 //Marcos Lopez Medina
 require_once 'model/db.php'; // Assegura't que estàs incloent la connexió a la base de dades
-
 function mostrarArticulos() {
-    global $conn; // Utilitzar la variable de connexió global
-    $articulos_html = ''; // Inicialitzar variable per emmagatzemar el HTML
+    global $conn; // Asegúrate de que $conn esté disponible aquí
 
-    // Consulta per obtenir tots els articles
-    $query = "SELECT id, nombre, cuerpo, fecha_creacion, fecha_modificacion FROM articulos";
-    $result = mysqli_query($conn, $query);
+    // Número de artículos por página
+    $articulos_por_pagina = 5;
 
-    // Comprovar si hi ha articles
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Sortida de les dades de cada fila
-        while ($row = mysqli_fetch_assoc($result)) {
-            $articulos_html .= "<div class='articulo'>";
-            $articulos_html .= "<h1>" . htmlspecialchars($row['id']) . "</h1>";
-            $articulos_html .= "<h2>" . htmlspecialchars($row['nombre']) . "</h2>"; // Mostrar el nom de l'article
-            $articulos_html .= "<p>" . htmlspecialchars($row['cuerpo']) . "</p>"; // Mostrar el contingut de l'article
-            $articulos_html .= "<small>Creat: " . htmlspecialchars($row['fecha_creacion']) . "</small>"; // Mostrar data de creació
-            $articulos_html .= "<small>Modificat: " . htmlspecialchars($row['fecha_modificacion']) . "</small>"; // Mostrar data de modificació
-            $articulos_html .= "</div>";
-        }
-    } else {
-        $articulos_html .= "<p>No hi ha articles disponibles.</p>";
+    // Obtener el número total de artículos
+    $consultaTotal = $conn->query("SELECT COUNT(*) AS total FROM articulos");
+    $total_articulos = $consultaTotal->fetch_assoc()['total'];
+
+    // Calcular el número total de páginas
+    $total_paginas = ceil($total_articulos / $articulos_por_pagina);
+
+    // Obtener la página actual desde la URL o establecer 1 como valor por defecto
+    $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+    $pagina_actual = max(1, min($pagina_actual, $total_paginas)); // Asegúrate de que la página actual sea válida
+
+    // Calcular el índice del primer artículo de la página actual
+    $inicio = ($pagina_actual - 1) * $articulos_por_pagina;
+
+    // Preparar la consulta para obtener los artículos de la página actual
+    $consultaArticulos = $conn->prepare("SELECT id, nombre, cuerpo FROM articulos LIMIT ?, ?");
+    $consultaArticulos->bind_param("ii", $inicio, $articulos_por_pagina);
+    $consultaArticulos->execute();
+    $resultados = $consultaArticulos->get_result();
+
+    // Generar la lista de artículos
+    $html = '<ul>';
+    while ($articulo = $resultados->fetch_assoc()) {
+        $html .= '<li>';
+        $html .= '<h3>' . htmlspecialchars($articulo['nombre']) . '</h3>';
+        $html .= '<p>' . htmlspecialchars($articulo['cuerpo']) . '</p>';
+        $html .= '</li>';
     }
+    $html .= '</ul>';
 
-    return $articulos_html; // Retornar el HTML generat
+    // Generar los enlaces de paginación
+    $html .= '<div class="pagination">';
+    if ($pagina_actual > 1) {
+        $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '">« Anterior</a>';
+    }
+    for ($i = 1; $i <= $total_paginas; $i++) {
+        if ($i == $pagina_actual) {
+            $html .= '<span>' . $i . '</span>'; // Página actual
+        } else {
+            $html .= '<a href="?pagina=' . $i . '">' . $i . '</a>';
+        }
+    }
+    if ($pagina_actual < $total_paginas) {
+        $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '">Siguiente »</a>';
+    }
+    $html .= '</div>';
+
+    return $html;
 }
 ?>
