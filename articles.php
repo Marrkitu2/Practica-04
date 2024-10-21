@@ -1,33 +1,33 @@
 <?php
 //Marcos Lopez Medina
-require_once 'model/db.php'; // Assegura't que estàs incloent la connexió a la base de dades
+require_once 'model/db.php'; 
 function mostrarArticulos() {
-    global $conn; // Asegúrate de que $conn esté disponible aquí
+    global $conn; 
 
-    // Número de artículos por página
+    // Nombre d'articles per pàgina
     $articulos_por_pagina = 5;
 
-    // Obtener el número total de artículos
+    // Obtenir el nombre total d'articles
     $consultaTotal = $conn->query("SELECT COUNT(*) AS total FROM articulos");
     $total_articulos = $consultaTotal->fetch_assoc()['total'];
 
-    // Calcular el número total de páginas
+    // Calcular el nombre total de pàgines
     $total_paginas = ceil($total_articulos / $articulos_por_pagina);
 
-    // Obtener la página actual desde la URL o establecer 1 como valor por defecto
+    // Obtenir la pàgina actual des de la URL o establir 1 com a valor per defecte
     $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-    $pagina_actual = max(1, min($pagina_actual, $total_paginas)); // Asegúrate de que la página actual sea válida
+    $pagina_actual = max(1, min($pagina_actual, $total_paginas)); 
 
-    // Calcular el índice del primer artículo de la página actual
+    // Calcular l'índex del primer article de la pàgina actual
     $inicio = ($pagina_actual - 1) * $articulos_por_pagina;
 
-    // Preparar la consulta para obtener los artículos de la página actual
+    // Preparar la consulta per obtenir els articles de la pàgina actual
     $consultaArticulos = $conn->prepare("SELECT id, nombre, cuerpo FROM articulos LIMIT ?, ?");
     $consultaArticulos->bind_param("ii", $inicio, $articulos_por_pagina);
     $consultaArticulos->execute();
     $resultados = $consultaArticulos->get_result();
 
-    // Generar la lista de artículos
+    // Generar la llista d'articles
     $html = '<ul>';
     while ($articulo = $resultados->fetch_assoc()) {
         $html .= '<li>';
@@ -37,20 +37,20 @@ function mostrarArticulos() {
     }
     $html .= '</ul>';
 
-    // Generar los enlaces de paginación
+    // Generar els enllaços de paginació
     $html .= '<div class="pagination">';
     if ($pagina_actual > 1) {
         $html .= '<a href="?pagina=' . ($pagina_actual - 1) . '">« Anterior</a>';
     }
     for ($i = 1; $i <= $total_paginas; $i++) {
         if ($i == $pagina_actual) {
-            $html .= '<span>' . $i . '</span>'; // Página actual
+            $html .= '<span>' . $i . '</span>';
         } else {
             $html .= '<a href="?pagina=' . $i . '">' . $i . '</a>';
         }
     }
     if ($pagina_actual < $total_paginas) {
-        $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '">Siguiente »</a>';
+        $html .= '<a href="?pagina=' . ($pagina_actual + 1) . '">Següent »</a>';
     }
     $html .= '</div>';
 
